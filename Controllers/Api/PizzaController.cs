@@ -2,6 +2,7 @@
 using la_mia_pizzeria_static.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace la_mia_pizzeria_static.Controllers.Api
 {
@@ -15,7 +16,7 @@ namespace la_mia_pizzeria_static.Controllers.Api
         {
             PizzaContext context = new PizzaContext();
 
-            IQueryable<Pizza> listaPizze = context.Pizze;
+            IQueryable<Pizza> listaPizze = context.Pizze.Include(p => p.Categoria);
 
             return Ok(listaPizze);
         }
