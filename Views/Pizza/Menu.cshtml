@@ -1,0 +1,51 @@
+﻿
+@using la_mia_pizzeria_static
+
+@model List<Pizza>
+
+<main class="container">
+
+    <a class="btn btn-success mb-5" href="@Url.Action("Create", "Pizza")"> Crea una nuova pizza </a>
+
+    @if(Model.Count() == 0)
+    {
+        <h1>Non ci sono pizze disponibili</h1>
+    }
+    else
+    {
+        <h1 class="text-center p-4 mb-5 text-danger bg-secondary rounded-pill">Le nostre pizze</h1>
+        @foreach(Pizza pizza in Model)
+        {
+            <div class="card d-flex flex-row justify-content-between p-3 mb-4 bg-warning">
+                <div class="col-6 ">
+                    <h3> <a href="@Url.Action("DettaglioPizza", "Pizza", new {id = pizza.ID})">@pizza.Name </a> </h3>
+                    <p>@pizza.Description</p>
+                    <p>Prezzo: @pizza.Price&euro;</p>
+                    <p>Tipologia: @pizza.Categoria.Name</p>
+                </div>
+                   
+                <div class="col-6">
+                    <img class="w-50 rounded-circle" src="https://static6.depositphotos.com/1000814/612/v/600/depositphotos_6125994-stock-illustration-pizza-salami.jpg" />
+                </div>
+
+
+                <div>
+                    <a class="btn btn-warning" href="@Url.Action("Update", "Pizza", new {id = pizza.ID})">Modifica pizza </a>
+
+                    <form asp-controller="Pizza" asp-action="Delete" asp-route-id="@pizza.ID" method="post">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-danger">Elimina</button>
+
+                    </form>
+
+                </div>
+                
+             
+            </div>
+        } 
+    }
+
+
+</main>
+              
+
