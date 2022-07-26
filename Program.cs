@@ -40,7 +40,7 @@ app.UseAuthorization();
 // dichiara qual � il primo controller da istanziare e passo il parametro id come path
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Pizza}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.MapRazorPages();
 
