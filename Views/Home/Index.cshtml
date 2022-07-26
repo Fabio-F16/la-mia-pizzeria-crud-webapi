@@ -1,9 +1,45 @@
-﻿@{
+﻿@*@{
     Layout = null;
-}
-<body>
+}*@
 
-    <h1 class="text-center"> <a href="/Pizza">Pizzeria</a> </h1>
-    <h1 class="text-center"> <a href="/EserciziRazor">Esercizi Razor</a> </h1>
-</body>
+<div>
+             
+        <h4> <a href="/Pizza">Pizzeria</a> </h4>
+        <h4> <a href="/EserciziRazor">Esercizi Razor</a> </h4>
+   
+</div>
+
+<div class="container">
+    <div class="box">
+
+    </div>
+</div>
+
+
+
+<script>
+    axios.get('api/pizze/get').then(res => {
+       
+        if (res.data.length == 0) {
+            console.log(err);
+        } else{
+            res.data.forEach(pizza => {
+                console.log('pizza', pizza);
+                document.querySelector('.box').innerHTML += 
+                `
+                <div class="card d-flex flex-row justify-content-between p-3 mb-4 bg-warning">
+                    <div class="col-6 ">
+                        <h3> ${pizza.name} </h3>
+                        <p>${pizza.description}</p>
+                        <p>Prezzo: ${pizza.price}&euro;</p>
+                    </div>
+                </div>
+                `
+            })
+        }
+
+    })
+</script>
+
+
 
