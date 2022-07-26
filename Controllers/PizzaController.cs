@@ -8,7 +8,7 @@ using System.Diagnostics;
 
 namespace la_mia_pizzeria_static.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class PizzaController : Controller
     {
         private readonly ILogger<PizzaController> _logger;
