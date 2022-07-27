@@ -23,6 +23,26 @@ namespace la_mia_pizzeria_static.Controllers.Api
 
             return Ok(listaPizze.ToList());
         }
+
+
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+            using (PizzaContext context = new PizzaContext())
+            {
+                Pizza current = context.Pizze.Where(pizza => pizza.ID == id).Include(p => p.Categoria).Include(p => p.ListaIngredienti).FirstOrDefault();
+                
+                if (current == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(current);
+                }
+            }
+
+        }
     }
 }
 
