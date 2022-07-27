@@ -14,16 +14,19 @@
 
 <script type="text/javascript">
 
+loadData(null);
+
+
 document.getElementById("search-input").addEventListener("keyup", search);
 // search
 function search(e) {
-
+    
     var value = document.getElementById("search-input").value;
    // console.log(value);
-    loadData(value);
+   document.querySelector('.box').innerHTML = '';
+   loadData(value);
 }
 
-loadData(null);
 
 
 // load data
@@ -38,6 +41,7 @@ function loadData(search) {
         } else{
             res.data.forEach(pizza => {
                 console.log('pizza', pizza);
+                
                 document.querySelector('.box').innerHTML +=
                 `
                 <div class="card d-flex flex-row justify-content-between p-3 mb-4 bg-warning">
@@ -54,7 +58,7 @@ function loadData(search) {
     })
 }
 
-    
+   
 </script>
 
 
