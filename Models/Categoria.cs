@@ -9,6 +9,9 @@ namespace la_mia_pizzeria_static.Models
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
+
+        // molto drastico, in tutti gli scenari verrà troncato il collegamento,
+        // potrebbe non essere la scelta migliore
         [JsonIgnore]
         public List<Pizza> Pizzas { get; set; }
 
