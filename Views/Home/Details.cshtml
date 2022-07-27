@@ -1,0 +1,35 @@
+﻿@model int
+
+<div class="container">
+    <div class="box">
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    const id = @Model;
+
+    axios.get(`/api/pizze/${id}`).then((res) => {
+     
+        const pizza = res.data;   
+        
+        document.querySelector('.box').innerHTML +=
+        `
+        <div class="card d-flex flex-row justify-content-between p-3 mb-4 bg-warning">
+            <div class="col-6">
+                <h3>${pizza.name}</h3>
+                <p>${pizza.description}</p>
+                <p>Prezzo:${pizza.price}&euro;</p>
+                <p>Tipologia: ${pizza.categoria.name}</p>
+                
+            </div>
+        </div>
+        `;    
+    }).catch(err => {
+        console.log(err);
+    })
+
+</script>
+
+
+
