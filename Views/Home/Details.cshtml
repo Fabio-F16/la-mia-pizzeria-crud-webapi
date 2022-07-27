@@ -11,17 +11,25 @@
 
     axios.get(`/api/pizze/${id}`).then((res) => {
      
-        const pizza = res.data;   
-        
+        const pizza = res.data;
+        //console.log(pizza);
+        var ingredienti = "";
+        pizza.listaIngredienti.forEach(item => {
+            var p = `<ul><li>${item.name}</li></ul>`;
+            ingredienti += p;
+        })
+
+
         document.querySelector('.box').innerHTML +=
         `
         <div class="card d-flex flex-row justify-content-between p-3 mb-4 bg-warning">
             <div class="col-6">
                 <h3>${pizza.name}</h3>
                 <p>${pizza.description}</p>
-                <p>Prezzo:${pizza.price}&euro;</p>
+                <p>Prezzo: ${pizza.price}&euro;</p>
                 <p>Tipologia: ${pizza.categoria.name}</p>
-                
+                <p>Ingredienti:</p>
+                ${ingredienti}
             </div>
         </div>
         `;    
