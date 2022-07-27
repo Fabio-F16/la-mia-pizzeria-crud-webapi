@@ -5,14 +5,36 @@
 </div>
 
 <div class="container">
+    <div>
+        <input id="search-input" type="text" class="form-control mb-5" placeholder="Ricerca una pizza" onkeyup="search"/>
+    </div>
     <div class="box">
     </div>
 </div>
 
-<script>
-    axios.get('api/pizze/get').then(res => {
+<script type="text/javascript">
+
+document.getElementById("search-input").addEventListener("keyup", search);
+// search
+function search(e) {
+
+    var value = document.getElementById("search-input").value;
+   // console.log(value);
+    loadData(value);
+}
+
+loadData(null);
+
+
+// load data
+function loadData(search) {
+    axios.get('api/pizze', {
+        params: {
+            search: search
+        }
+    }).then(res => {
         if (res.data.length == 0) {
-            console.log(err);
+           
         } else{
             res.data.forEach(pizza => {
                 console.log('pizza', pizza);
@@ -20,7 +42,7 @@
                 `
                 <div class="card d-flex flex-row justify-content-between p-3 mb-4 bg-warning">
                     <div class="col-6">
-                        <h3>${pizza.name}</h3>
+                        <h3> <a href="/Home/Details/${pizza.id}">${pizza.name}</a></h3>
                         <p>${pizza.description}</p>
                         <p>Prezzo:${pizza.price}&euro;</p>
                         <p>Tipologia: ${pizza.categoria.name}</p>
@@ -30,6 +52,9 @@
             })
         }
     })
+}
+
+    
 </script>
 
 

@@ -11,14 +11,18 @@ namespace la_mia_pizzeria_static.Controllers.Api
     public class PizzaController : ControllerBase
     {
         [HttpGet]
-        [Route("get")]
-        public IActionResult Get()
+        public IActionResult Get(string? search)
         {
             PizzaContext context = new PizzaContext();
-
             IQueryable<Pizza> listaPizze = context.Pizze.Include(p => p.Categoria);
 
-            return Ok(listaPizze);
+            if (search != null && search !="")
+            {
+                listaPizze = listaPizze.Where(p => p.Name.ToLower().Contains(search)).Include(p => p.Categoria);
+            }
+
+            return Ok(listaPizze.ToList());
         }
     }
 }
+
