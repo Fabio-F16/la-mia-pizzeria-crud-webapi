@@ -1,0 +1,83 @@
+﻿
+<div>
+
+    <div class="container">
+         <h1>Contattaci!</h1>
+        <form id="contact-form" onsubmit="sendMessage(event)">
+            <div>
+                <label for="contact-name" class="form-label">Nome:</label>
+                <input id="contact-name" type="text" class="form-control" />
+            </div>
+
+             <div>
+                <label for="contact-email" class="form-label">Email:</label>
+                <input id="contact-email" type="email" class="form-control" />
+            </div>
+
+            <div>
+                <label for="contact-title" class="form-label">Titolo:</label>
+                <input id="contact-title" type="text" class="form-control" />
+            </div>
+
+             <div>
+                <label for="contact-text" class="form-label">Testo del messaggio:</label>
+                <textarea id="contact-text" class="form-control" rows="5" ></textarea>
+            </div>
+
+            <input type="submit" class="btn btn-primary mt-5" value="Invia" />
+
+        </form>
+
+    </div>
+   
+</div>
+
+
+<script type="text/javascript">
+
+function sendMessage(e){
+
+    e.preventDefault();
+
+    axios.post('/api/message', {
+
+        name: document.getElementById('contact-name').value,
+        email: document.getElementById('contact-email').value,
+        title: document.getElementById('contact-title').value,
+        text: document.getElementById('contact-text').value,
+
+    }).then(function(res) {
+
+        document.getElementById('contact-name').value = '';
+        document.getElementById('contact-email').value = '';
+        document.getElementById('contact-title').value = '';
+        document.getElementById('contact-text').value = '';
+
+        alert('Messaggio inviato');
+
+    }).catch(err => {
+        console.log(err);
+        
+         if (err.response.data.errors.Email) {
+
+            alert('L\' email è obbligatoria');
+
+        }else if (err.response.data.errors.Name) {
+
+            alert('Il nome è obbligatorio');
+
+        }else if (err.response.data.errors.Text) {
+
+            alert('Il testo è obbligatorio');
+
+        }else if (err.response.data.errors.Title) {
+
+            alert('Il titolo è obbligatorio');
+
+        } 
+    })
+}
+
+</script>
+
+
