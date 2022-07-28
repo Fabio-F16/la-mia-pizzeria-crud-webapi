@@ -37,7 +37,14 @@ function loadData(search) {
         }
     }).then(res => {
         if (res.data.length == 0) {
-           
+             document.querySelector('.box').innerHTML +=
+                `
+                <div class="card d-flex flex-row justify-content-between p-3 mb-4 bg-warning">
+                    <div class="col-6">
+                        <h3> Nessun risultato </h3>    
+                    </div>
+                </div>
+                `;
         } else{
             res.data.forEach(pizza => {
                 console.log('pizza', pizza);
